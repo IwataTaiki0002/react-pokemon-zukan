@@ -13,3 +13,8 @@ export interface Name {
 export interface APIResource {
   url: string;
 }
+
+export interface FlavorTextEntry {
+  flavor_text: string;
+  language: NamedAPIResource;
+}
