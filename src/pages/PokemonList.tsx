@@ -28,6 +28,12 @@ const PokemonList: React.FC = () => {
     },
   });
 
+  console.log('PokemonList - status:', status);
+  console.log('PokemonList - isLoading:', isLoading);
+  console.log('PokemonList - data:', data);
+  console.log('PokemonList - pages:', data?.pages);
+  console.log('PokemonList - first page results:', data?.pages?.[0]?.results);
+
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -53,11 +59,13 @@ const PokemonList: React.FC = () => {
   return (
     <div className="p-4">
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {data?.pages.map((page) =>
-          page.results.map((pokemon: PokemonWithJapaneseName) => (
-            <PokemonCard key={pokemon.name} pokemon={pokemon} />
-          ))
-        )}
+        {data?.pages.map((page, pageIndex) => {
+          console.log(`Rendering page ${pageIndex}, results:`, page.results);
+          return page.results.map((pokemon: PokemonWithJapaneseName) => {
+            console.log('Rendering pokemon:', pokemon);
+            return <PokemonCard key={pokemon.name} pokemon={pokemon} />;
+          });
+        })}
       </div>
       <div ref={loadMoreRef} className="h-20 flex items-center justify-center">
         {isFetchingNextPage ? <Loader /> : hasNextPage ? '続きを読み込む' : ''}
