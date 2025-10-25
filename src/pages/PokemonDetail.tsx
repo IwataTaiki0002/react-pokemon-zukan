@@ -1,6 +1,6 @@
 // src/pages/PokemonDetail.tsx
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { fetchPokemonDetail } from '../api/pokemonDetail';
 import PokemonTypeLabel from '../components/PokemonTypeLabel';
@@ -16,10 +16,6 @@ const PokemonDetail: React.FC = () => {
     queryFn: () => fetchPokemonDetail(Number(id)),
     enabled: !!id,
   });
-
-  useEffect(() => {
-    console.log(data);
-  }, [data])
 
   if (isLoading) return <PokemonDetailSkeleton />;
   if (error instanceof Error) return <div>エラー: {error.message}</div>;
@@ -72,7 +68,7 @@ const PokemonDetail: React.FC = () => {
         </div>
       </div>
       <div className="mt-4 flex justify-between">
-        {/* 0は前へがないので非表示 */}
+        {/* 1は前へがないので非表示 */}
         {Number(id) !== 1 ? <Link to={`/pokemon/${Number(id) - 1}`} className="px-4 py-2 bg-blue-500 text-white rounded-md">前へ</Link> : <span />}
         <Link to={`/pokemon/${Number(id) + 1}`} className="px-4 py-2 bg-blue-500 text-white rounded-md">次へ</Link>
       </div>
@@ -118,4 +114,3 @@ const PokemonDetailSkeleton: React.FC = () => {
 };
 
 export default PokemonDetail;
-
