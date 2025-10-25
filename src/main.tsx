@@ -7,18 +7,12 @@ import './index.css';
 
 const queryClient = new QueryClient();
 
-// 開発環境とプロダクション環境でベースパスを切り替え
-const basename = import.meta.env.MODE === 'production' ? '/react-pokemon-zukan' : '/';
-
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter basename={basename}>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <App />
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>
 );
-
-
-
